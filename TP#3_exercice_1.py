@@ -18,11 +18,11 @@ Règles :
 """)
 
 
-def lancer_de():
+def lancer_de(): # creation du dé
     return random.randint(1, 6)
 
 
-def nouvelle_force_adversaire():
+def nouvelle_force_adversaire(): # creation du force de l'adversaire
     return random.randint(1, 5)
 
 

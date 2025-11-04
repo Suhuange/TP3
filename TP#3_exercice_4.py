@@ -6,7 +6,7 @@
 import random
 
 
-def afficher_regles(): # montre les règles du jeu
+def afficher_regles():  # montre les règles du jeu
     print("""
 Règles :
 - Vous commencez avec 20 points de vie.
@@ -37,7 +37,7 @@ def nouvelle_force_adversaire(victoires_consecutives, boss_after=3):
         return random.randint(2, 8), False
 
 
-def jeu(): # Boucle principale du jeu de combattre des monstres
+def jeu():  # Boucle principale du jeu de combattre des monstres
     vie = 20
     numero_adversaire = 0
     victoires = 0
@@ -48,7 +48,7 @@ def jeu(): # Boucle principale du jeu de combattre des monstres
     print("=== Bienvenue : Le combat des monstres (variante 2 dés) ===")
     afficher_regles()
 
-    while True: # Deuxième boucle, combattre des monstres
+    while True:  # Deuxième boucle, combattre des monstres
         if vie <= 0:
             print("\nVous n'avez plus de points de vie. La partie est terminée.")
             break
@@ -61,7 +61,7 @@ def jeu(): # Boucle principale du jeu de combattre des monstres
             # reset de la chaîne de victoires pour éviter réapparition immédiate
             victoires_consecutives = 0
         else:
-            print(f"\nVous rencontrez un adversaire (numéro {numero_adversaire}).") # Description du combat
+            print(f"\nVous rencontrez un adversaire (numéro {numero_adversaire}).")  # Description du combat
 
         print(f"Force de l'adversaire : {force}")
         print(f"Points de vie actuels : {vie}")
@@ -101,3 +101,7 @@ Choix :
             vie -= 1
             victoires_consecutives = 0
             print("\nVous évitez l'adversai")
+
+
+if __name__ == "__main__":
+    jeu()

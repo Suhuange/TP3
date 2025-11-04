@@ -9,14 +9,13 @@ import random
 def afficher_regles():  # montre les règles du jeu
     print("""
 Règles :
-- Vous commencez avec 20 points de vie.
-- Adversaires normaux : force aléatoire entre 2 et 8 (adapté au lancer de 2 dés).
-- Boss (apparaît après 3 victoires consécutives) : force aléatoire entre 9 et 12.
-- Combat : on lance 2 dés (somme 2..12). Victoire si somme > force adversaire.
-- Victoire : vous gagnez en points de vie = force de l'adversaire (ajoutés).
-- Défaite : vous perdez en points de vie = force de l'adversaire.
-- Éviter un adversaire : -1 point de vie.
-- La partie se termine si vos points de vie <= 0 ou si vous choisissez de quitter.
+Pour réussir un combat, il faut que la valeur du dé lancé soit supérieure à la force de l’adversaire.  Dans ce cas, 
+le niveau de vie de l’usager est augmenté de la force de l’adversaire.
+Une défaite a lieu lorsque la valeur du dé lancé par l’usager est inférieure ou égale à la force de l’adversaire.  
+Dans ce cas, le niveau de vie de l’usager est diminué de la force de l’adversaire.
+La partie se termine lorsque les points de vie de l’usager tombent sous 0.
+L’usager peut combattre ou éviter chaque adversaire, dans le cas de l’évitement, il y a une pénalité de 1 point de vie.
+Le Boss apparaît après 3 victoires consécutives : force aléatoire entre 9 et 12.
 """)
 
 
@@ -50,7 +49,7 @@ def jeu():  # Boucle principale du jeu de combattre des monstres
 
     while True:  # Deuxième boucle, combattre des monstres
         if vie <= 0:
-            print("\nVous n'avez plus de points de vie. La partie est terminée.")
+            print(f"\nLa partie est terminée, vous avez vaincu {victoires} monstre(s)")
             break
 
         numero_adversaire += 1
@@ -58,18 +57,17 @@ def jeu():  # Boucle principale du jeu de combattre des monstres
 
         if est_boss:
             print(f"\n!!! UN BOSS APPARAÎT (après {boss_after} victoires consécutives) !!!")
+            print(f"Force du boss : {force}")
             # reset de la chaîne de victoires pour éviter réapparition immédiate
             victoires_consecutives = 0
         else:
-            print(f"\nVous rencontrez un adversaire (numéro {numero_adversaire}).")  # Description du combat
-
-        print(f"Force de l'adversaire : {force}")
+            print(f"\nVous tombez face à face un adversaire de difficulté: {force}")  # Description du combat
         print(f"Points de vie actuels : {vie}")
         print("""
-Choix :
- 1 - Combattre
- 2 - Éviter (coûte 1 point de vie)
- 3 - Afficher les règles
+Que voulez-vous faire?
+ 1 - Combattre cet adversaire
+ 2 - Contourner cet adversaire et aller ouvrir une autre porte (coûte 1 point de vie)
+ 3 - Afficher les règles du jeu
  4 - Quitter la partie
 """)
         choix = input("Votre choix (1-4) : ").strip()
@@ -77,7 +75,11 @@ Choix :
         if choix == "1":
             # combat : toujours 2 dés en exercice 4
             de = lancer_de(2)
-            print(f"Vous lancez 2 dés -> total : {de}")
+            print(f"Adversaire : {numero_adversaire}"
+                  f"Force de l'adversaire : {force}"
+                  f"Niveau de vie de l'usager : {vie}"
+                  f"Combat {numero_adversaire} : {victoires} victoires et {defaites} defaites"
+                  f"Lancer du dé : {de}")
 
             if de > force:
                 # victoire
@@ -86,8 +88,8 @@ Choix :
                 victoires_consecutives += 1
                 print("\n>>> VICTOIRE ! <<<")
                 print(f"Vous gagnez {force} points de vie.")
-                print(f"Points de vie : {vie}")
-                print(f"Victoire(s) consécutive(s) : {victoires_consecutives}")
+                print(f"Niveau de vie : {vie}")
+                print(f"Nombre de Victoires consécutives : {victoires_consecutives}")
             else:
                 # défaite (dé <= force)
                 vie -= force
@@ -95,12 +97,23 @@ Choix :
                 victoires_consecutives = 0
                 print("\n--- DÉFAITE ---")
                 print(f"Vous perdez {force} points de vie.")
-                print(f"Points de vie : {vie}")
+                print(f"Niveau de vie : {vie}")
 
         elif choix == "2":
             vie -= 1
             victoires_consecutives = 0
             print("\nVous évitez l'adversai")
+
+        elif choix == "3":
+            print(afficher_regles())
+
+        elif choix == "4":
+            print("Merci et au revoir...")
+            break
+
+    else:
+        print("\nChoix invalide — merci de taper 1, 2, 3 ou 4.")
+
 
 
 if __name__ == "__main__":

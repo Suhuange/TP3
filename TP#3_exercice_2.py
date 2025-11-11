@@ -74,7 +74,7 @@ def jeu():  # Boucle principale du jeu de combattre des monstres
     vie = 20  # Points de vie initiaux
     numero_adversaire = 0  # Compteur d'adversaires rencontrés
     victoires = 0  # Total des victoires
-    defaites = 0  # Total des défaites  
+    defaites = 0  # Total des défaites
     combat_num = 0  # Numéro du combat actuel
     victoires_consecutives = 0  # Compteur de victoires d'affilée
     boss_after = 3  # Seuil pour faire apparaître un boss
@@ -136,10 +136,10 @@ Que voulez-vous faire ?
 
             # Affichage des informations du combat
             print(f"\nAdversaire : {numero_adversaire}"
-                  f"\nForce de l'adversaire : {force}"
-                  f"\nNiveau de vie : {vie}"
-                  f"\nCombat {combat_num} : {victoires} victoires et {defaites} défaites"
-                  f"\nDernier combat : {dernier_combat_statut}")
+                  f"Force de l'adversaire : {force}"
+                  f"Niveau de vie : {vie}"
+                  f"Combat {combat_num} : {victoires} victoires et {defaites} défaites"
+                  f"Dernier combat : {dernier_combat_statut}")
 
             # Mécanique de combat différente pour les boss
             if est_boss:
@@ -166,7 +166,7 @@ Que voulez-vous faire ?
                 print(f"Victoire(s) consécutive(s) : {victoires_consecutives}")
             else:
                 # DÉFAITE
-                vie -= force  # Perte de points de vie  
+                vie -= force  # Perte de points de vie
                 defaites += 1  # Incrémentation défaites totales
                 victoires_consecutives = 0  # Réinitialisation victoires consécutives
                 dernier_combat_statut = "défaite"

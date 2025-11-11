@@ -1,7 +1,6 @@
 # Eric Su
 # Groupe 1234
-# Jeu de combattre avec des monstres dont l'usager doit combattre avec des monstres avec de la chance!
-# Exercice 4
+# Jeu "Le combat des monstres" — variante exercice 4 (combat de 2 dés)
 
 import random
 
@@ -33,7 +32,7 @@ def nouvelle_force_adversaire(victoires_consecutives, boss_after=3):
     Paramètres:
     - victoires_consecutives: nombre de victoires d'affilée du joueur
     - boss_after: seuil de victoires pour faire apparaître un boss (défaut: 3)
-    
+
     Retourne:
     - force: valeur numérique de la force
     - est_boss: booléen indiquant si c'est un boss
@@ -51,20 +50,20 @@ def jeu():  # Boucle principale du jeu de combattre des monstres
     Fonction principale qui gère une partie complète du jeu
     avec le système de boss et l'utilisation de 2 dés pour tous les combats
     """
-    
+
     # Initialisation des statistiques du joueur
-    vie = 20                           # Points de vie initiaux
-    numero_adversaire = 0              # Compteur d'adversaires rencontrés
-    victoires = 0                      # Total des victoires
-    defaites = 0                       # Total des défaites  
-    victoires_consecutives = 0         # Compteur de victoires d'affilée
-    boss_after = 3                     # Seuil pour faire apparaître un boss
+    vie = 20  # Points de vie initiaux
+    numero_adversaire = 0  # Compteur d'adversaires rencontrés
+    victoires = 0  # Total des victoires
+    defaites = 0  # Total des défaites
+    victoires_consecutives = 0  # Compteur de victoires d'affilée
+    boss_after = 3  # Seuil pour faire apparaître un boss
 
     print("=== Bienvenue : Le combat des monstres (variante 2 dés) ===")
     afficher_regles()
 
     while True:  # Boucle principale du jeu - se répète pour chaque adversaire
-        
+
         # Vérification de la condition de fin de partie (points de vie épuisés)
         if vie <= 0:
             print(f"\nLa partie est terminée, vous avez vaincu {victoires} monstre(s)")
@@ -82,10 +81,10 @@ def jeu():  # Boucle principale du jeu de combattre des monstres
             victoires_consecutives = 0
         else:
             print(f"\nVous tombez face à face un adversaire de difficulté: {force}")
-            
+
         # Affichage des points de vie actuels
         print(f"Points de vie actuels : {vie}")
-        
+
         # Menu des actions disponibles
         print("""
 Que voulez-vous faire?
@@ -95,12 +94,12 @@ Que voulez-vous faire?
  4 - Quitter la partie
 """)
         choix = input("Votre choix (1-4) : ").strip()
-        
+
         # Option 1: Combattre l'adversaire
         if choix == "1":
             # Combat : toujours 2 dés en exercice 4 (contrairement à l'exercice 2)
             de = lancer_de(2)
-            
+
             # Affichage des informations du combat
             print(f"\nAdversaire : {numero_adversaire}"
                   f"\nForce de l'adversaire : {force}"
@@ -111,26 +110,26 @@ Que voulez-vous faire?
             # Résolution du combat
             if de > force:
                 # VICTOIRE - le score des dés est supérieur à la force de l'adversaire
-                vie += force                    # Gain de points de vie égaux à la force de l'adversaire
-                victoires += 1                 # Incrémentation victoires totales
-                victoires_consecutives += 1    # Incrémentation victoires consécutives
+                vie += force  # Gain de points de vie égaux à la force de l'adversaire
+                victoires += 1  # Incrémentation victoires totales
+                victoires_consecutives += 1  # Incrémentation victoires consécutives
                 print("\n>>> VICTOIRE ! <<<")
                 print(f"Vous gagnez {force} points de vie.")
                 print(f"Niveau de vie : {vie}")
                 print(f"Nombre de Victoires consécutives : {victoires_consecutives}")
             else:
                 # DÉFAITE - le score des dés est inférieur ou égal à la force de l'adversaire
-                vie -= force                    # Perte de points de vie égaux à la force de l'adversaire
-                defaites += 1                  # Incrémentation défaites totales
-                victoires_consecutives = 0     # Réinitialisation victoires consécutives
+                vie -= force  # Perte de points de vie égaux à la force de l'adversaire
+                defaites += 1  # Incrémentation défaites totales
+                victoires_consecutives = 0  # Réinitialisation victoires consécutives
                 print("\n--- DÉFAITE ---")
                 print(f"Vous perdez {force} points de vie.")
                 print(f"Niveau de vie : {vie}")
 
         # Option 2: Éviter le combat
         elif choix == "2":
-            vie -= 1                           # Pénalité fixe de 1 point de vie pour l'évitement
-            victoires_consecutives = 0         # Réinitialisation victoires consécutives
+            vie -= 1  # Pénalité de 1 point de vie pour l'évitement
+            victoires_consecutives = 0  # Réinitialisation victoires consécutives
             print("\nVous évitez l'adversaire (coût : -1 point de vie).")
             print(f"Points de vie : {vie}")
 
@@ -150,15 +149,14 @@ Que voulez-vous faire?
 
 def main():
     """
-    Fonction principale qui gère le redémarrage du jeu
     Permet à l'utilisateur de rejouer sans relancer le programme
     """
     print("Combattre de monstres")
-    
+
     while True:  # Boucle externe pour les parties multiples
         # Lancement d'une nouvelle partie
         jeu()
-        
+
         # Proposition de rejouer
         while True:
             reponse = input("Rejouer? (o/n): ").strip().lower()

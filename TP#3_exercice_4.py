@@ -1,7 +1,6 @@
 # Eric Su
 # Groupe 1234
 # Jeu de combattre avec des monstres dont l'usager doit combattre avec des monstres avec de la chance!
-# Exercice 4
 
 import random
 
@@ -9,105 +8,119 @@ import random
 def afficher_regles():  # montre les règles du jeu
     print("""
 Règles :
-Pour réussir un combat, il faut que la valeur du dé lancé soit supérieure à la force de l’adversaire.  Dans ce cas, 
+Pour réussir un combat, il faut que la valeur du dé lancé soit supérieure à la force de l’adversaire.  Dans ce cas,
 le niveau de vie de l’usager est augmenté de la force de l’adversaire.
-Une défaite a lieu lorsque la valeur du dé lancé par l’usager est inférieure ou égale à la force de l’adversaire.  
+Une défaite a lieu lorsque la valeur du dé lancé par l’usager est inférieure ou égale à la force de l’adversaire.
 Dans ce cas, le niveau de vie de l’usager est diminué de la force de l’adversaire.
 La partie se termine lorsque les points de vie de l’usager tombent sous 0.
 L’usager peut combattre ou éviter chaque adversaire, dans le cas de l’évitement, il y a une pénalité de 1 point de vie.
-Le Boss apparaît après 3 victoires consécutives : force aléatoire entre 9 et 12.
 """)
 
 
-def lancer_de(n=2):
-    """Retourne la somme de n lancers de 1..6. Par défaut n=2 (exercice 4)."""
-    return sum(random.randint(1, 6) for _ in range(n))
+def lancer_de():
+    return random.randint(1, 6)
 
 
-def nouvelle_force_adversaire(victoires_consecutives, boss_after=3):
+def nouvelle_force_adversaire():
+    return random.randint(1, 5)
+
+
+def dernier_combat(combat_statut, score_de, force_adversaire, niveau_vie, nombre_victoires_consecutives):
     """
-    Renvoie (force, est_boss).
-    Si victoires_consecutives >= boss_after => boss (force 9..12).
-    Sinon adversaire normal (force 2..8).
+    Affiche le resultat du dernier combat
     """
-    if victoires_consecutives >= boss_after:
-        return random.randint(9, 12), True
+    print(f"\n Résultat du dernier combat ")
+    print(f"Lancer du dé : {score_de}")
+    print(f"Force de l'adversaire : {force_adversaire}")
+
+    if combat_statut == "victoire":
+        print(f"Dernier combat : VICTOIRE")
+        print(f"Niveau de vie : {niveau_vie}")
+        print(f"Nombre de victoires consécutives : {nombre_victoires_consecutives}")
     else:
-        return random.randint(2, 8), False
+        print(f"Dernier combat : DÉFAITE")
+        print(f"Niveau de vie : {niveau_vie}")
 
 
 def jeu():  # Boucle principale du jeu de combattre des monstres
-    vie = 20
+    niveau_vie = 20
     numero_adversaire = 0
-    victoires = 0
-    defaites = 0
+    nombre_victoires = 0
+    nombre_defaites = 0
     victoires_consecutives = 0
-    boss_after = 3  # boss après 3 victoires consécutives
-
-    print("=== Bienvenue : Le combat des monstres (variante 2 dés) ===")
-    afficher_regles()
-
+    combat_num = 0
+    dernier_combat_statut = None
+    dernier_score_de = None
+    derniere_force_adversaire = None
+    print("Bienvenue — Le combat des monstres !")
     while True:  # Deuxième boucle, combattre des monstres
-        if vie <= 0:
-            print(f"\nLa partie est terminée, vous avez vaincu {victoires} monstre(s)")
+        # Vérifier fin de partie
+        if niveau_vie <= 0:
+            print(f"\nLa partie est terminée, vous avez vaincu {nombre_victoires} monstre(s).")
             break
 
         numero_adversaire += 1
-        force, est_boss = nouvelle_force_adversaire(victoires_consecutives, boss_after=boss_after)
+        force_adversaire = nouvelle_force_adversaire()
+        print("\nVous tombez face à face avec un adversaire de difficulté :", {force_adversaire})
 
-        if est_boss:
-            print(f"\n!!! UN BOSS APPARAÎT (après {boss_after} victoires consécutives) !!!")
-            print(f"Force du boss : {force}")
-            # reset de la chaîne de victoires pour éviter réapparition immédiate
-            victoires_consecutives = 0
-        else:
-            print(f"\nVous tombez face à face un adversaire de difficulté: {force}")  # Description du combat
-        print(f"Points de vie actuels : {vie}")
+        if dernier_combat_statut is not None:
+            dernier_combat(
+                dernier_combat_statut,
+                dernier_score_de,
+                derniere_force_adversaire,
+                niveau_vie,
+                victoires_consecutives
+            )
+
+            dernier_combat_statut = None
+            dernier_score_de = None
+            derniere_force_adversaire = None
+        # menu
         print("""
-Que voulez-vous faire?
+Que voulez-vous faire ?
  1 - Combattre cet adversaire
- 2 - Contourner cet adversaire et aller ouvrir une autre porte (coûte 1 point de vie)
+ 2 - Contourner cet adversaire et ouvrir une autre porte (coûte 1 point de vie)
  3 - Afficher les règles du jeu
  4 - Quitter la partie
 """)
         choix = input("Votre choix (1-4) : ").strip()
         if choix == "1":
-            # combat : toujours 2 dés en exercice 4
-            de = lancer_de(2)
-            print(f"Adversaire : {numero_adversaire}"
-                  f"Force de l'adversaire : {force}"
-                  f"Niveau de vie de l'usager : {vie}"
-                  f"Combat {numero_adversaire} : {victoires} victoires et {defaites} defaites"
-                  f"Lancer du dé : {de}")
-
-            if de > force:
+            combat_num += 1
+            print(f"\nAdversaire : {numero_adversaire}"
+                  f"\nForce de l'adversaire : {force_adversaire}"
+                  f"\nNiveau de vie : {niveau_vie}"
+                  f"\nCombat {combat_num} : {nombre_victoires} victoires et {nombre_defaites} défaites")
+            score_de = lancer_de()
+            print("Lancer du dé :", score_de)
+            if score_de > force_adversaire:
                 # victoire
-                vie += force
-                victoires += 1
+                niveau_vie += force_adversaire
+                nombre_victoires += 1
                 victoires_consecutives += 1
-                print("\n>>> VICTOIRE ! <<<")
-                print(f"Vous gagnez {force} points de vie.")
-                print(f"Niveau de vie : {vie}")
-                print(f"Nombre de Victoires consécutives : {victoires_consecutives}")
+                print("Résultat : VICTOIRE !")
+                print(f"Niveau de vie : {niveau_vie}")
+                print(f"Nombre de victoires consécutives : {victoires_consecutives}")
+
             else:
-                # défaite (dé <= force)
-                vie -= force
-                defaites += 1
+                # défaite (<=)
+                niveau_vie -= force_adversaire
+                nombre_defaites += 1
                 victoires_consecutives = 0
-                print("\n--- DÉFAITE ---")
-                print(f"Vous perdez {force} points de vie.")
-                print(f"Niveau de vie : {vie}")
+                print("Résultat : DÉFAITE.")
+                print(f"Niveau de vie : {niveau_vie}")
 
         elif choix == "2":
-            vie -= 1
+            niveau_vie -= 1
             victoires_consecutives = 0
-            print("\nVous évitez l'adversai")
+            print("\nVous évitez le combat (pénalité : -1 point de vie).")
+            print(f"Niveau de vie : {niveau_vie}")
 
         elif choix == "3":
-            print(afficher_regles())
+            afficher_regles()
 
-        elif choix == "4":
-            print("Merci et au revoir...")
+        else:
+            print("\nMerci et au revoir...")
+            print(f"Vous avez vaincu {nombre_victoires} monstre(s).")
             break
 
 
@@ -125,5 +138,5 @@ def main():
             print("Répondre avec 'o' ou 'n'.")
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == "__main__":  # Boucle du combattre des monstres
+    jeu()

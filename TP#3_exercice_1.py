@@ -71,14 +71,14 @@ def jeu():  # Boucle principale du jeu de combattre des monstres
     nombre_defaites = 0  # Total des défaites
     victoires_consecutives = 0  # Victoires d'affilée
     combat_num = 0  # Numéro du combat actuel
-    
+
     # Variables pour mémoriser le dernier combat
     dernier_combat_statut = None
     dernier_score_de = None
     derniere_force_adversaire = None
-    
+
     print("Bienvenue — Le combat des monstres !")
-    
+
     while True:  # Boucle principale du jeu
         # Vérifier si la partie est terminée (points de vie épuisés)
         if niveau_vie <= 0:
@@ -103,7 +103,7 @@ def jeu():  # Boucle principale du jeu de combattre des monstres
             dernier_combat_statut = None
             dernier_score_de = None
             derniere_force_adversaire = None
-            
+
         # Affichage du menu des actions possibles
         print("""
 Que voulez-vous faire ?
@@ -113,7 +113,7 @@ Que voulez-vous faire ?
  4 - Quitter la partie
 """)
         choix = input("Votre choix (1-4) : ").strip()
-        
+
         # Option 1: Combattre l'adversaire
         if choix == "1":
             combat_num += 1
@@ -122,11 +122,11 @@ Que voulez-vous faire ?
                   f"\nForce de l'adversaire : {force_adversaire}"
                   f"\nNiveau de vie : {niveau_vie}"
                   f"\nCombat {combat_num} : {nombre_victoires} victoires et {nombre_defaites} défaites")
-            
+
             # Lancer du dé pour déterminer l'issue du combat
             score_de = lancer_de()
             print("Lancer du dé :", score_de)
-            
+
             if score_de > force_adversaire:
                 # VICTOIRE: le dé est supérieur à la force de l'adversaire
                 niveau_vie += force_adversaire  # Gain de points de vie
@@ -135,7 +135,7 @@ Que voulez-vous faire ?
                 print("Résultat : VICTOIRE !")
                 print(f"Niveau de vie : {niveau_vie}")
                 print(f"Nombre de victoires consécutives : {victoires_consecutives}")
-                
+
                 # Mémoriser les données pour l'affichage du prochain tour
                 dernier_combat_statut = "victoire"
                 dernier_score_de = score_de
@@ -148,7 +148,7 @@ Que voulez-vous faire ?
                 victoires_consecutives = 0  # Réinitialiser le compteur de victoires consécutives
                 print("Résultat : DÉFAITE.")
                 print(f"Niveau de vie : {niveau_vie}")
-                
+
                 # Mémoriser les données pour l'affichage du prochain tour
                 dernier_combat_statut = "défaite"
                 dernier_score_de = score_de

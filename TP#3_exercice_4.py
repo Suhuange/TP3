@@ -71,7 +71,6 @@ Que voulez-vous faire?
  4 - Quitter la partie
 """)
         choix = input("Votre choix (1-4) : ").strip()
-
         if choix == "1":
             # combat : toujours 2 dés en exercice 4
             de = lancer_de(2)
@@ -111,10 +110,20 @@ Que voulez-vous faire?
             print("Merci et au revoir...")
             break
 
-    else:
-        print("\nChoix invalide — merci de taper 1, 2, 3 ou 4.")
 
+def main():
+    print("Combattre de monstres")
+    while True:
+        jeu()
+        while True:
+            reponse = input("Rejouer? (o/n): ").strip().lower()
+            if reponse in "o":
+                break  # rejouer
+            if reponse in "n":  # fin du programme parce que l'usager quitte
+                print("Merci et au revoir")
+                return
+            print("Répondre avec 'o' ou 'n'.")
 
 
 if __name__ == "__main__":
-    jeu()
+    main()

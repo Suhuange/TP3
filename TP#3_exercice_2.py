@@ -34,7 +34,7 @@ def nouvelle_force_adversaire(victoires_consecutives, boss_after=3):
     Paramètres:
     - victoires_consecutives: nombre de victoires d'affilée du joueur
     - boss_after: seuil de victoires pour faire apparaître un boss
-    
+
     Retourne:
     - force: valeur numérique de la force
     - est_boss: booléen indiquant si c'est un boss
@@ -69,25 +69,25 @@ def jeu():  # Boucle principale du jeu de combattre des monstres
     Fonction principale qui gère le déroulement complet du jeu
     avec le système de boss après 3 victoires consécutives
     """
-    
+
     # Initialisation des statistiques du joueur
-    vie = 20                           # Points de vie initiaux
-    numero_adversaire = 0              # Compteur d'adversaires rencontrés
-    victoires = 0                      # Total des victoires
-    defaites = 0                       # Total des défaites  
-    combat_num = 0                     # Numéro du combat actuel
-    victoires_consecutives = 0         # Compteur de victoires d'affilée
-    boss_after = 3                     # Seuil pour faire apparaître un boss
-    
+    vie = 20  # Points de vie initiaux
+    numero_adversaire = 0  # Compteur d'adversaires rencontrés
+    victoires = 0  # Total des victoires
+    defaites = 0  # Total des défaites  
+    combat_num = 0  # Numéro du combat actuel
+    victoires_consecutives = 0  # Compteur de victoires d'affilée
+    boss_after = 3  # Seuil pour faire apparaître un boss
+
     # Variables pour mémoriser le dernier combat
-    dernier_combat_statut = None       # "victoire" ou "défaite"
-    dernier_score_de = None            # Score du dé du dernier combat
-    derniere_force_adversaire = None   # Force du dernier adversaire
+    dernier_combat_statut = None  # "victoire" ou "défaite"
+    dernier_score_de = None  # Score du dé du dernier combat
+    derniere_force_adversaire = None  # Force du dernier adversaire
 
     print("=== Bienvenue : Le combat des monstres (variante boss) ===")
 
     while True:  # Boucle principale du jeu
-        
+
         # Vérification de la condition de fin de partie
         if vie <= 0:
             print("\nVous n'avez plus de points de vie. La partie est terminée.")
@@ -133,14 +133,14 @@ Que voulez-vous faire ?
         # Option 1: Combattre l'adversaire
         if choix == "1":
             combat_num += 1
-            
+
             # Affichage des informations du combat
             print(f"\nAdversaire : {numero_adversaire}"
                   f"\nForce de l'adversaire : {force}"
                   f"\nNiveau de vie : {vie}"
                   f"\nCombat {combat_num} : {victoires} victoires et {defaites} défaites"
                   f"\nDernier combat : {dernier_combat_statut}")
-            
+
             # Mécanique de combat différente pour les boss
             if est_boss:
                 # Combat contre boss: 2 dés
@@ -154,9 +154,9 @@ Que voulez-vous faire ?
             # Résolution du combat
             if de > force:
                 # VICTOIRE
-                vie += force                    # Gain de points de vie
-                victoires += 1                 # Incrémentation victoires totales
-                victoires_consecutives += 1    # Incrémentation victoires consécutives
+                vie += force  # Gain de points de vie
+                victoires += 1  # Incrémentation victoires totales
+                victoires_consecutives += 1  # Incrémentation victoires consécutives
                 dernier_combat_statut = "victoire"
                 dernier_score_de = de
                 derniere_force_adversaire = force
@@ -166,9 +166,9 @@ Que voulez-vous faire ?
                 print(f"Victoire(s) consécutive(s) : {victoires_consecutives}")
             else:
                 # DÉFAITE
-                vie -= force                    # Perte de points de vie  
-                defaites += 1                  # Incrémentation défaites totales
-                victoires_consecutives = 0     # Réinitialisation victoires consécutives
+                vie -= force  # Perte de points de vie  
+                defaites += 1  # Incrémentation défaites totales
+                victoires_consecutives = 0  # Réinitialisation victoires consécutives
                 dernier_combat_statut = "défaite"
                 dernier_score_de = de
                 derniere_force_adversaire = force
@@ -178,8 +178,8 @@ Que voulez-vous faire ?
 
         # Option 2: Éviter le combat
         elif choix == "2":
-            vie -= 1                           # Pénalité pour évitement
-            victoires_consecutives = 0         # Réinitialisation victoires consécutives
+            vie -= 1  # Pénalité pour évitement
+            victoires_consecutives = 0  # Réinitialisation victoires consécutives
             print("\nVous évitez l'adversaire (coût : -1 point de vie).")
             print(f"Points de vie : {vie}")
 

@@ -10,7 +10,7 @@
 import random
 
 
-def afficher_regles(): # montre les règles du jeu
+def afficher_regles():  # montre les règles du jeu
     print("""
 Règles :
 - Vous commencez avec 20 points de vie.
@@ -42,18 +42,38 @@ def nouvelle_force_adversaire(victoires_consecutives, boss_after=3):
         return random.randint(1, 5), False
 
 
-def jeu(): # Boucle principale du jeu de combattre des monstres
+def dernier_combat(combat_statut, score_de, force_adversaire, niveau_vie, nombre_victoires_consecutives):
+    """
+    Affiche le resultat du dernier combat
+    """
+    print(f"\nRésultat du dernier combat ")
+    print(f"Lancer du dé : {score_de}")
+    print(f"Force de l'adversaire : {force_adversaire}")
+
+    if combat_statut == "victoire":
+        print(f"Dernier combat : VICTOIRE")
+        print(f"Niveau de vie : {niveau_vie}")
+        print(f"Nombre de victoires consécutives : {nombre_victoires_consecutives}")
+    else:
+        print(f"Dernier combat : DÉFAITE")
+        print(f"Niveau de vie : {niveau_vie}")
+
+
+def jeu():  # Boucle principale du jeu de combattre des monstres
     vie = 20
     numero_adversaire = 0
     victoires = 0
     defaites = 0
+    combat_num = 0
     victoires_consecutives = 0
     boss_after = 3  # paramètre : boss après 3 victoires consécutives
+    dernier_combat_statut = None
+    dernier_score_de = None
+    derniere_force_adversaire = None
 
     print("=== Bienvenue : Le combat des monstres (variante boss) ===")
-    afficher_regles()
 
-    while True: # Deuxième boucle, combattre des monstres
+    while True:  # Deuxième boucle, combattre des monstres
         if vie <= 0:
             print("\nVous n'avez plus de points de vie. La partie est terminée.")
             break
@@ -66,34 +86,55 @@ def jeu(): # Boucle principale du jeu de combattre des monstres
             # reset de la chaîne de victoires pour éviter réapparition immédiate
             victoires_consecutives = 0
         else:
-            print(f"\nVous rencontrez un adversaire (numéro {numero_adversaire}).") # Description du combat
+            print(f"\nVous tombez face à face avec un adversaire de difficulté :", {force})  # Description du combat
 
-        print(f"Force de l'adversaire : {force}")
-        print(f"Points de vie actuels : {vie}")
+            if dernier_combat_statut is not None:
+                dernier_combat(
+                    dernier_combat_statut,
+                    dernier_score_de,
+                    derniere_force_adversaire,
+                    vie,
+                    victoires_consecutives
+                )
+
+                dernier_combat_statut = None
+                dernier_score_de = None
+                derniere_force_adversaire = None
+
         print("""
 Choix :
- 1 - Combattre
- 2 - Éviter (coûte 1 point de vie)
- 3 - Afficher les règles
+Que voulez-vous faire ?
+ 1 - Combattre cet adversaire
+ 2 - Contourner cet adversaire et ouvrir une autre porte (coûte 1 point de vie)
+ 3 - Afficher les règles du jeu
  4 - Quitter la partie
 """)
         choix = input("Votre choix (1-4) : ").strip()
 
         if choix == "1":
+            combat_num += 1
+            print(f"\nAdversaire : {numero_adversaire}"
+                  f"\nForce de l'adversaire : {force}"
+                  f"\nNiveau de vie : {vie}"
+                  f"\nCombat {combat_num} : {victoires} victoires et {defaites} défaites"
+                  f"\nDernier combat : {dernier_combat_statut}")
             # combat
             if est_boss:
                 # boss: lance 2 dés
                 de = lancer_de(2)
-                print(f"Vous lancez 2 dés -> total : {de}")
+                print(f"Lancer des 2 dés : {de}")
             else:
                 de = lancer_de(1)
-                print(f"Vous lancez 1 dé -> résultat : {de}")
+                print(f"lancer du dé : {de}")
 
             if de > force:
                 # victoire
                 vie += force
                 victoires += 1
                 victoires_consecutives += 1
+                dernier_combat_statut = "victoire"
+                dernier_score_de = de
+                derniere_force_adversaire = force
                 print("\n>>> VICTOIRE ! <<<")
                 print(f"Vous gagnez {force} points de vie.")
                 print(f"Points de vie : {vie}")
@@ -103,6 +144,9 @@ Choix :
                 vie -= force
                 defaites += 1
                 victoires_consecutives = 0
+                dernier_combat_statut = "défaite"
+                dernier_score_de = de
+                derniere_force_adversaire = force
                 print("\n--- DÉFAITE ---")
                 print(f"Vous perdez {force} points de vie.")
                 print(f"Points de vie : {vie}")
@@ -121,7 +165,7 @@ Choix :
             break
 
         else:
-            print("\nChoix invalide — merci de taper 1, 2, 3 ou 4.")
+            print("\nChoix invalide — taper 1, 2, 3 ou 4.")
 
     # résumé final
     print("\n=== Résumé de la partie ===")

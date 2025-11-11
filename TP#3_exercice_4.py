@@ -102,10 +102,10 @@ Que voulez-vous faire?
 
             # Affichage des informations du combat
             print(f"\nAdversaire : {numero_adversaire}"
-                  f"\nForce de l'adversaire : {force}"
-                  f"\nNiveau de vie de l'usager : {vie}"
-                  f"\nCombat {numero_adversaire} : {victoires} victoires et {defaites} defaites"
-                  f"\nLancer des deux dé : {de}")
+                  f"Force de l'adversaire : {force}"
+                  f"Niveau de vie de l'usager : {vie}"
+                  f"Combat {numero_adversaire} : {victoires} victoires et {defaites} defaites"
+                  f"Lancer des deux dé : {de}")
 
             # Résolution du combat
             if de > force:

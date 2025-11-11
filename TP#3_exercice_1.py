@@ -119,9 +119,9 @@ Que voulez-vous faire ?
             combat_num += 1
             # Affichage des informations du combat
             print(f"\nAdversaire : {numero_adversaire}"
-                  f"\nForce de l'adversaire : {force_adversaire}"
-                  f"\nNiveau de vie : {niveau_vie}"
-                  f"\nCombat {combat_num} : {nombre_victoires} victoires et {nombre_defaites} défaites")
+                  f"Force de l'adversaire : {force_adversaire}"
+                  f"Niveau de vie : {niveau_vie}"
+                  f"Combat {combat_num} : {nombre_victoires} victoires et {nombre_defaites} défaites")
 
             # Lancer du dé pour déterminer l'issue du combat
             score_de = lancer_de()

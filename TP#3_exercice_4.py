@@ -101,11 +101,11 @@ Que voulez-vous faire?
             de = lancer_de()
 
             # Affichage des informations du combat
-            print(f"\nAdversaire : {numero_adversaire}"
-                  f"Force de l'adversaire : {force}"
-                  f"Niveau de vie de l'usager : {vie}"
-                  f"Combat {numero_adversaire} : {victoires} victoires et {defaites} defaites"
-                  f"Lancer des deux dé : {de}")
+            print(f"\nAdversaire : {numero_adversaire}")
+            print(f"Force de l'adversaire : {force}")
+            print(f"Niveau de vie de l'usager : {vie}")
+            print(f"Combat {numero_adversaire} : {victoires} victoires et {defaites} defaites")
+            print(f"Lancer des deux dé : {de}")
 
             # Résolution du combat
             if de > force:

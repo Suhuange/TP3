@@ -21,9 +21,9 @@ Le Boss apparaît après 3 victoires consécutives : force aléatoire entre 9 et
 """)
 
 
-def lancer_de(n=2):
-    """Retourne la somme de n lancers de dé à 6 faces. Par défaut n=2 (exercice 4)."""
-    return sum(random.randint(1, 6) for _ in range(n))
+def lancer_de():
+    """Retourne la somme de 2 lancers de dé à 6 faces. (exercice 4)."""
+    return sum(random.randint(1, 6) for _ in range(2))
 
 
 def nouvelle_force_adversaire(victoires_consecutives, boss_after=3):
@@ -98,7 +98,7 @@ Que voulez-vous faire?
         # Option 1: Combattre l'adversaire
         if choix == "1":
             # Combat : toujours 2 dés en exercice 4 (contrairement à l'exercice 2)
-            de = lancer_de(2)
+            de = lancer_de()
 
             # Affichage des informations du combat
             print(f"\nAdversaire : {numero_adversaire}"

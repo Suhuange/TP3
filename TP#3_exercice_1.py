@@ -46,7 +46,7 @@ def dernier_combat(combat_statut, score_de, force_adversaire, niveau_vie, nombre
     - niveau_vie: niveau de vie actuel du joueur
     - nombre_victoires_consecutives: nombre de victoires consécutives
     """
-    print(f"\n Résultat du dernier combat ")
+    print(f"\nRésultat du dernier combat ")
     print(f"Lancer du dé : {score_de}")
     print(f"Force de l'adversaire : {force_adversaire}")
 
@@ -118,10 +118,10 @@ Que voulez-vous faire ?
         if choix == "1":
             combat_num += 1
             # Affichage des informations du combat
-            print(f"\nAdversaire : {numero_adversaire}"
-                  f"Force de l'adversaire : {force_adversaire}"
-                  f"Niveau de vie : {niveau_vie}"
-                  f"Combat {combat_num} : {nombre_victoires} victoires et {nombre_defaites} défaites")
+            print(f"\nAdversaire : {numero_adversaire}")
+            print(f"Force de l'adversaire : {force_adversaire}")
+            print(f"Niveau de vie : {niveau_vie}")
+            print(f"Combat {combat_num} : {nombre_victoires} victoires et {nombre_defaites} défaites")
 
             # Lancer du dé pour déterminer l'issue du combat
             score_de = lancer_de()

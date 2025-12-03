@@ -135,11 +135,11 @@ Que voulez-vous faire ?
             combat_num += 1
 
             # Affichage des informations du combat
-            print(f"\nAdversaire : {numero_adversaire}"
-                  f"Force de l'adversaire : {force}"
-                  f"Niveau de vie : {vie}"
-                  f"Combat {combat_num} : {victoires} victoires et {defaites} défaites"
-                  f"Dernier combat : {dernier_combat_statut}")
+            print(f"\nAdversaire : {numero_adversaire}")
+            print(f"Force de l'adversaire : {force}")
+            print(f"Niveau de vie : {vie}")
+            print(f"Combat {combat_num} : {victoires} victoires et {defaites} défaites")
+            print(f"Dernier combat : {dernier_combat_statut}")
 
             # Mécanique de combat différente pour les boss
             if est_boss:

@@ -132,9 +132,6 @@ Que voulez-vous faire ?
                 niveau_vie += force_adversaire  # Gain de points de vie
                 nombre_victoires += 1
                 victoires_consecutives += 1
-                print("Résultat : VICTOIRE !")
-                print(f"Niveau de vie : {niveau_vie}")
-                print(f"Nombre de victoires consécutives : {victoires_consecutives}")
 
                 # Mémoriser les données pour l'affichage du prochain tour
                 dernier_combat_statut = "victoire"
@@ -146,8 +143,6 @@ Que voulez-vous faire ?
                 niveau_vie -= force_adversaire  # Perte de points de vie
                 nombre_defaites += 1
                 victoires_consecutives = 0  # Réinitialiser le compteur de victoires consécutives
-                print("Résultat : DÉFAITE.")
-                print(f"Niveau de vie : {niveau_vie}")
 
                 # Mémoriser les données pour l'affichage du prochain tour
                 dernier_combat_statut = "défaite"

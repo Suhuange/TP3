@@ -144,7 +144,7 @@ Que voulez-vous faire?
 
         # Gestion des choix invalides
         else:
-            print("Choix invalide. Veuillez choisir entre 1 et 4.")
+            print("Choix invalide, taper 1, 2, 3 ou 4.")
 
 
 def main():
@@ -170,6 +170,5 @@ def main():
             print("Répondre avec 'o' ou 'n'.")
 
 
-if __name__ == "__main__":
-    # Point d'entrée du programme
-    main()
+if __name__ == "__main__":  # Point d'entrée du programme
+    main()  # Lancement du jeu

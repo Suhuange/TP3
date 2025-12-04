@@ -88,7 +88,7 @@ def jeu():  # Boucle principale du jeu de combattre des monstres
         # Préparation du nouvel adversaire
         numero_adversaire += 1
         force_adversaire = nouvelle_force_adversaire()
-        print("\nVous tombez face à face avec un adversaire de difficulté :", {force_adversaire})
+        print(f"\nVous tombez face à face avec un adversaire de difficulté : {force_adversaire}")
 
         # Affichage du résultat du combat précédent (si applicable)
         if dernier_combat_statut is not None:

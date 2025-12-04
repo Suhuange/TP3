@@ -103,7 +103,7 @@ def jeu():  # Boucle principale du jeu de combattre des monstres
             # Réinitialisation du compteur pour éviter les boss en chaîne
             victoires_consecutives = 0
         else:
-            print(f"\nVous tombez face à face avec un adversaire de difficulté :", {force})
+            print(f"\nVous tombez face à face avec un adversaire de difficulté : {force}")
 
             # Affichage du résultat du combat précédent (sauf pour les boss)
             if dernier_combat_statut is not None:
@@ -194,15 +194,31 @@ Que voulez-vous faire ?
 
         # Gestion des choix invalides
         else:
-            print("\nChoix invalide — taper 1, 2, 3 ou 4.")
-
-    # Affichage du résumé final de la partie
-    print("\n=== Résumé de la partie ===")
-    print(f"Victoires : {victoires}")
-    print(f"Défaites  : {defaites}")
-    print(f"Points de vie finaux : {max(vie, 0)}")
-    print("Merci d'avoir joué !")
+            print("\nChoix invalide, taper 1, 2, 3 ou 4.")
 
 
-if __name__ == "__main__":
-    jeu()
+def main():
+    """
+    Permet à l'utilisateur de rejouer sans relancer le programme
+    """
+    print("Combattre de monstres")
+
+    while True:  # Boucle externe pour les parties multiples
+        # Lancement d'une nouvelle partie
+        jeu()
+
+        # Proposition de rejouer
+        while True:
+            reponse = input("Rejouer? (o/n): ").strip().lower()
+            if reponse in "o":
+                break  # Sort de la boucle de confirmation et relance une nouvelle partie
+            if reponse in "n":
+                # Fin du programme
+                print("Merci et au revoir")
+                return
+            # Gestion des réponses invalides
+            print("Répondre avec 'o' ou 'n'.")
+
+
+if __name__ == "__main__":  # Point d'entrée du programme
+    main()  # Lancement du jeu

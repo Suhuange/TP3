@@ -168,8 +168,31 @@ Que voulez-vous faire ?
 
         # Gestion des choix invalides
         else:
-            print("\nChoix invalide — réessayez.")
+            print("\nChoix invalide, taper 1, 2, 3 ou 4.")
+
+
+def main():
+    """
+    Permet à l'utilisateur de rejouer sans relancer le programme
+    """
+    print("Combattre de monstres")
+
+    while True:  # Boucle externe pour les parties multiples
+        # Lancement d'une nouvelle partie
+        jeu()
+
+        # Proposition de rejouer
+        while True:
+            reponse = input("Rejouer? (o/n): ").strip().lower()
+            if reponse in "o":
+                break  # Sort de la boucle de confirmation et relance une nouvelle partie
+            if reponse in "n":
+                # Fin du programme
+                print("Merci et au revoir")
+                return
+            # Gestion des réponses invalides
+            print("Répondre avec 'o' ou 'n'.")
 
 
 if __name__ == "__main__":  # Point d'entrée du programme
-    jeu()  # Lancement du jeu
+    main()  # Lancement du jeu
